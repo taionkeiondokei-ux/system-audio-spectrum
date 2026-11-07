@@ -3,8 +3,7 @@
 A cyberpunk-themed HUD-style real-time audio spectrum analyzer for Windows (WASAPI Loopback).  
 It visualizes whatever your PC is playing: spectrum, waterfall, stereo field, peak / crest, and now-playing info, all in one resizable window.
 
-<img width="426" height="240" alt="Video Project" src="https://github.com/user-attachments/assets/5f73f957-d6f5-4f5a-b678-055964bfa9cd" />
-
+<img width="426" height="240" alt="Video Project" src="https://github.com/user-attachments/assets/83610b82-b066-44ca-8efb-e12ca6dcad88" />
 
 
 ---
@@ -60,8 +59,8 @@ Tuned for visual comfort, not just a raw FFT dump.
 
 ### 📥 Download (Pre-built Executable)
 No Python environment required.
-1. Download the latest `.exe` from the **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** page.
-2. Double-click to run.  
+1. Download the latest `.zip` from the **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** page.
+2. Extract the zip and double-click `spectrum_clean.exe` inside the extracted folder. Keep the whole folder together; the exe will not start without the files next to it.  
    *(Since this is an unsigned community app, Windows SmartScreen may show a warning. Click "More info" -> "Run anyway".)*
 
 ### 🛠️ Running from Source (Python 3.10+)
@@ -70,6 +69,13 @@ pip install -r requirements.txt
 python spectrum_clean.py
 ```
 Main libraries: PyQt6, NumPy, PyAudioWPatch, plus `winsdk` (track info) and `pycaw` / `comtypes` (volume) as optional features. Place `app.ico` next to the script to show the window icon.
+
+### 📦 Building the Executable (PyInstaller)
+```bash
+pip install pyinstaller
+pyinstaller --noconsole --onedir --clean --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+```
+The result is in `dist/spectrum_clean/`. `--onedir` starts much faster than `--onefile`; distribute the whole folder as a zip.
 
 ---
 
@@ -117,8 +123,8 @@ Main libraries: PyQt6, NumPy, PyAudioWPatch, plus `winsdk` (track info) and `pyc
 | **右下のボタン（⏮ ⏯ ⏭）** | 前の曲 / 再生・一時停止 / 次の曲 |
 
 ### 📥 ダウンロード（exeで使う場合）
-1. **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** ページから最新版の `.exe` をダウンロードしてください。
-2. そのままダブルクリックで起動します。  
+1. **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** ページから最新版の `.zip` をダウンロードしてください。
+2. zipを展開し、フォルダ内の `spectrum_clean.exe` をダブルクリックで起動します。フォルダの中身は一緒に置いたままにしてください（exe単体では起動しません）。  
    *(※個人開発の未署名アプリのため、Windows SmartScreenの警告が出た場合は「詳細情報」→「実行」を押してください)*
 
 ### 🛠️ ソースコードから動かす場合（Python 3.10以上推奨）
@@ -127,6 +133,13 @@ pip install -r requirements.txt
 python spectrum_clean.py
 ```
 主なライブラリ: PyQt6、NumPy、PyAudioWPatch。オプション機能として `winsdk`（曲情報）と `pycaw` / `comtypes`（音量表示）。ウィンドウアイコンを表示するには、スクリプトと同じ場所に `app.ico` を置いてください。
+
+### 📦 exeのビルド方法（PyInstaller）
+```bash
+pip install pyinstaller
+pyinstaller --noconsole --onedir --clean --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+```
+出力は `dist/spectrum_clean/` に作られます。`--onedir` は `--onefile` より起動がかなり速くなります。配布するときはフォルダごとzipにしてください。
 
 ---
 
