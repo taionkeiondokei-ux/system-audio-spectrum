@@ -76,9 +76,16 @@ Main libraries: PyQt6, NumPy, PyAudioWPatch, plus `winsdk` (track info) and `pyc
 ### 📦 Building the Executable (PyInstaller)
 ```bash
 pip install pyinstaller
-pyinstaller --noconsole --onedir --clean --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+
+# Option 1: Portable ZIP (Recommended - faster startup)
+pyinstaller --noconsole --onedir --clean --name "SystemAudioSpectrumPro" --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+# Output: dist/SystemAudioSpectrumPro/ (distribute the whole folder as a zip)
+
+# Option 2: Standalone EXE (Single file)
+pyinstaller --noconsole --onefile --clean --name "SystemAudioSpectrumPro" --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+# Output: dist/SystemAudioSpectrumPro.exe
 ```
-The result is in `dist/spectrum_clean/`. `--onedir` starts much faster than `--onefile`; distribute the whole folder as a zip.
+`--onedir` starts much faster than `--onefile`.
 
 ---
 
@@ -143,9 +150,16 @@ python spectrum_clean.py
 ### 📦 exeのビルド方法（PyInstaller）
 ```bash
 pip install pyinstaller
-pyinstaller --noconsole --onedir --clean --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+
+# 選択肢1: Portable版（起動が速い・推奨）
+pyinstaller --noconsole --onedir --clean --name "SystemAudioSpectrumPro" --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+# 出力: dist/SystemAudioSpectrumPro/ フォルダ（フォルダごとzipにして配布）
+
+# 選択肢2: Standalone版（単一exeファイル）
+pyinstaller --noconsole --onefile --clean --name "SystemAudioSpectrumPro" --icon=app.ico --add-data "app.ico;." spectrum_clean.py
+# 出力: dist/SystemAudioSpectrumPro.exe
 ```
-出力は `dist/spectrum_clean/` に作られます。`--onedir` は `--onefile` より起動がかなり速くなります。配布するときはフォルダごとzipにしてください。
+`--onedir` は `--onefile` より起動がかなり速くなります。
 
 ---
 
