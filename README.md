@@ -58,10 +58,13 @@ Tuned for visual comfort, not just a raw FFT dump.
 | **Bottom-right buttons (⏮ ⏯ ⏭)** | Previous / Play-Pause / Next |
 
 ### 📥 Download (Pre-built Executable)
-No Python environment required.
-1. Download the latest `.zip` from the **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** page.
-2. Extract the zip and double-click `spectrum_clean.exe` inside the extracted folder. Keep the whole folder together; the exe will not start without the files next to it.  
-   *(Since this is an unsigned community app, Windows SmartScreen may show a warning. Click "More info" -> "Run anyway".)*
+No Python environment required. Download either of the following from the **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** page:
+
+- **Standalone EXE (`SystemAudioSpectrumPro.exe`)**: Easiest option. Just download and run (no extraction needed).
+- **Portable ZIP (`SystemAudioSpectrumPro_v2.0.0_portable.zip`)**: Faster startup. Extract the zip and run `SystemAudioSpectrumPro.exe` inside the folder (keep all files together).
+
+*(Since this is an unsigned community app, Windows SmartScreen may show a warning. Click "More info" -> "Run anyway".)*
+
 
 ### 🛠️ Running from Source (Python 3.10+)
 ```bash
@@ -123,9 +126,12 @@ The result is in `dist/spectrum_clean/`. `--onedir` starts much faster than `--o
 | **右下のボタン（⏮ ⏯ ⏭）** | 前の曲 / 再生・一時停止 / 次の曲 |
 
 ### 📥 ダウンロード（exeで使う場合）
-1. **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** ページから最新版の `.zip` をダウンロードしてください。
-2. zipを展開し、フォルダ内の `spectrum_clean.exe` をダブルクリックで起動します。フォルダの中身は一緒に置いたままにしてください（exe単体では起動しません）。  
-   *(※個人開発の未署名アプリのため、Windows SmartScreenの警告が出た場合は「詳細情報」→「実行」を押してください)*
+Python環境は不要です。**[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** ページから以下のいずれか1つをダウンロードしてください：
+
+- **Standalone EXE (`SystemAudioSpectrumPro.exe`)**: 一番手軽。解凍不要でそのままダブルクリックで起動できます。
+- **Portable ZIP (`SystemAudioSpectrumPro_v2.0.0_portable.zip`)**: 起動が高速。zipを展開し、フォルダ内の `SystemAudioSpectrumPro.exe` を実行してください（中身のファイル一式は同じ場所に置いておいてください）。
+
+*(※個人開発の未署名アプリのため、Windows SmartScreenの警告が出た場合は「詳細情報」→「実行」を押してください)*
 
 ### 🛠️ ソースコードから動かす場合（Python 3.10以上推奨）
 ```bash
