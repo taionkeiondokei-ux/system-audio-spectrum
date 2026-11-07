@@ -143,5 +143,13 @@ pyinstaller --noconsole --onedir --clean --icon=app.ico --add-data "app.ico;." s
 
 ---
 
+## 📄 License / ライセンス
+
+This project is licensed under the **GNU General Public License v3.0** (see [LICENSE](LICENSE)).
+It uses PyQt6, which is also available under the GPL v3. The source code for the distributed executable is available in this repository.
+
+本プロジェクトは **GNU General Public License v3.0** のもとで公開しています（[LICENSE](LICENSE) を参照）。
+PyQt6（GPL v3）を使用しているため、配布するexeに対応するソースコードは、このリポジトリで公開しています。
+
 ## 📜 Credits
 - Demo Music: Heuse - Pill [NCS Release]
