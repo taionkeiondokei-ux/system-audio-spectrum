@@ -1,0 +1,6 @@
+numpy
+PyQt6
+pyaudiowpatch
+winsdk
+pycaw
+comtypes
