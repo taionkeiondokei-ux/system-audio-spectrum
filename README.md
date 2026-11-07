@@ -3,7 +3,8 @@
 A cyberpunk-themed HUD-style real-time audio spectrum analyzer for Windows (WASAPI Loopback).  
 It visualizes whatever your PC is playing: spectrum, waterfall, stereo field, peak / crest, and now-playing info, all in one resizable window.
 
-<img width="426" height="240" alt="Video Project" src="https://github.com/user-attachments/assets/2be97d53-46a2-45e8-a028-3e9464c49849" />
+<img width="426" height="240" alt="Video Project" src="https://github.com/user-attachments/assets/5f73f957-d6f5-4f5a-b678-055964bfa9cd" />
+
 
 
 ---
