@@ -1,11 +1,9 @@
 # 🎵 System Audio Spectrum Pro v2
 
 A cyberpunk-themed HUD-style real-time audio spectrum analyzer for Windows (WASAPI Loopback).  
-Designed with both **aesthetic pleasure ("satisfying just to watch")** and **studio-grade audio analysis** in mind.
+It visualizes whatever your PC is playing: spectrum, waterfall, stereo field, peak / crest, and now-playing info, all in one resizable window.
 
-<img width="426" height="240" alt="Video Project" src="https://github.com/user-attachments/assets/7d42144d-36ac-47b0-b565-59765a38cdcf" />
-
-
+<img width="426" height="240" alt="Video Project" src="https://github.com/user-attachments/assets/2be97d53-46a2-45e8-a028-3e9464c49849" />
 
 
 ---
@@ -18,38 +16,50 @@ Designed with both **aesthetic pleasure ("satisfying just to watch")** and **stu
 
 ## 🇺🇸 English
 
-### 💡 Philosophy & Key Features
+### 💡 Features
 
-#### 1. "Visually Satisfying" Waveform Dynamics
-Engineered for human visual comfort, not just a raw FFT output.
-- **Fluid Response**: Combines high-speed sampling, frame-rate-independent exponential smoothing, and natural peak decay (16.8 dB/s) to capture the true energy and groove of your music.
-- **Blackman Window**: Drastically suppresses side-lobe leakage for razor-sharp frequency peaks.
+#### 1. Spectrum that is pleasant to watch
+Tuned for visual comfort, not just a raw FFT dump.
+- **FFT**: 4096-point FFT with a **Blackman window** for low side-lobe leakage. Log frequency axis from 20 Hz to 20 kHz, level range −75 dB to 0 dB.
+- **Fluid response**: Frame-rate-independent exponential smoothing, plus a peak-hold line that decays at **16.8 dB/s**.
+- **Waterfall**: A 64-frame history strip under the spectrum, colored by the current theme.
 
-#### 2. Smart Scaling & Low CPU/GPU Load
-- **Balanced Resizing**: Custom non-linear scaling (square-root scaling) prevents fonts and HUD elements from becoming comically oversized on large or 4K monitors.
-- **Polygon Decimation**: Automatically decimates plot vertices based on window width to keep rendering lightweight and butter-smooth at any resolution.
+#### 2. Layout that scales cleanly
+- **Aspect-ratio-preserving layout**: The HUD keeps its 16:9 proportions and stays centered when you resize or go full screen (minimum 640×360).
+- **Balanced text scaling**: Fonts and HUD elements grow with square-root scaling, so they do not become oversized on large or 4K displays.
+- **Light plotting**: The spectrum polyline is decimated to roughly 800 vertices on wide windows to keep rendering light.
+- **Auto-reconnect**: Follows the default playback device. If the output device is switched, or the audio stays silent for about 3 seconds, the loopback capture is reopened automatically.
 
-#### 3. Album Art & Media Control Integration
-- Seamlessly integrates with Windows Media (GSMTC). Displays **Album Art, Track Title, Artist, and Track Timeline** automatically from Spotify, browsers, etc.
-- Built-in on-screen controls for [Play/Pause] and [Skip].
+#### 3. Now Playing & media control (Windows Media / GSMTC)
+- Shows **album art, title, artist, album, track number, play state, and a position / duration timeline** for whatever is playing in Spotify, browsers, etc.
+- On-screen buttons for **Previous / Play-Pause / Next**.
+- Also shows the source app, sample rate, system volume (or MUTE), current theme, FPS, the capture device name, and a clock with date.
 
-#### 4. Studio-Grade Precision Meters
-- **Real-Time Spectrum & Waterfall**: High-resolution FFT plot with frequency history spectrogram.
-- **Lissajous Goniometer**: Visualizes stereo field width and phase.
-- **Stereo Correlation & Mid/Side Ratio**: Accurately tracks mono compatibility and stereo spread.
-- **Peak Level & Crest Factor**: Real-time measurement of dynamic punch and loudness.
-- **Spectral Centroid (OSD)**: Displays the perceptual "brightness" center of the audio.
+#### 4. Meters
+- **Spectrum & Waterfall**: Live spectrum with peak-hold, plus frequency history.
+- **Lissajous goniometer**: Stereo width and phase, drawn from the latest 128 samples of L/R.
+- **CORR**: Left/right correlation, −1 to +1, color-coded. A mono source shows +1.00.
+- **M/S**: Energy ratio of the Mid (L+R) and Side (L−R) components, in %.
+- **PEAK**: Sample peak in dBFS, with instant attack and a smoothed release. Turns amber at −3 dBFS or higher and red at −1 dBFS or higher.
+- **CREST**: Crest factor (peak minus RMS, in dB), an indicator of how dynamic the signal is.
+- **CENTROID**: Spectral centroid in kHz, an indicator of the "brightness" of the sound.
 
-### ⌨️ Shortcuts & Controls
+### ⚠️ Specifications & Limitations
+- **Spectrum, waterfall, and centroid are computed from a mono mix.** The left and right channels are summed and averaged, `(L + R) / 2`, before the FFT. A perfectly out-of-phase signal (L = −R) therefore cancels out and shows **zero** there. PEAK, CREST, the goniometer, CORR, and M/S use the left and right channels separately, so out-of-phase material still shows up in those meters (CORR goes to −1.00).
+- **PEAK is a sample peak, not a true peak.** There is no oversampling.
+- **Only the first two channels are used.** With multichannel output (e.g. 5.1), only the first two channels (front L/R) are analyzed.
+- **Windows only.** Capture relies on WASAPI loopback, and the media/volume features rely on Windows APIs. Track info needs `winsdk`, and volume/mute display needs `pycaw`. Without them the app still runs, but those items are not shown.
+
+### ⌨️ Controls
 | Control | Action |
 | :--- | :--- |
-| **`C` Key** | Cycle color themes (Cyan / Magenta / Gold / Green / White) |
-| **Top-Right [PIN]** | Toggle Always-on-Top mode |
-| **Top-Right Buttons** | Media control (Previous / Play & Pause / Next) |
+| **`C` key** | Cycle color themes (Cyberpunk Cyan / Neon Magenta / Amber Gold / Matrix Green / Ice White) |
+| **Top-right [PIN]** | Toggle Always-on-Top mode |
+| **Bottom-right buttons (⏮ ⏯ ⏭)** | Previous / Play-Pause / Next |
 
 ### 📥 Download (Pre-built Executable)
 No Python environment required.
-1. Download the latest `.exe` from the **[Releases](releases)** section on the right.
+1. Download the latest `.exe` from the **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** page.
 2. Double-click to run.  
    *(Since this is an unsigned community app, Windows SmartScreen may show a warning. Click "More info" -> "Run anyway".)*
 
@@ -58,42 +68,55 @@ No Python environment required.
 pip install -r requirements.txt
 python spectrum_clean.py
 ```
+Main libraries: PyQt6, NumPy, PyAudioWPatch, plus `winsdk` (track info) and `pycaw` / `comtypes` (volume) as optional features. Place `app.ico` next to the script to show the window icon.
 
 ---
 
 ## 🇯🇵 日本語 (Japanese)
 
-### 💡 こだわりポイント
+### 💡 特長
 
-#### 1. 人が見て「気持ちいい」波形のアニメーション
-単なるFFT表示ではなく、人間の視覚が心地よいと感じるレスポンスを追求しています。
-- **滑らかな動特性**: 高速サンプリングと指数平滑化、自然なピーク減衰（Peak Decay）を組み合わせ、音楽のダイナミクスがダイレクトに伝わる挙動にチューニング。
-- **Blackman窓関数の採用**: サイドローブのノイズを抑え、クリアでシャープな周波数ピークを描画。
+#### 1. 見ていて気持ちいいスペクトラム
+単なるFFTの垂れ流しではなく、見た目の心地よさを重視してチューニングしています。
+- **FFT**: 4096点FFTに**Blackman窓**を適用し、サイドローブの漏れを抑制。周波数軸は20 Hz〜20 kHzの対数軸、レベル表示は−75 dB〜0 dBです。
+- **滑らかな動き**: フレームレートに依存しない指数平滑化と、**16.8 dB/s**で減衰するピークホールド線。
+- **ウォーターフォール**: スペクトラム下に64フレーム分の履歴を表示。色は選択中のテーマに連動します。
 
-#### 2. リサイズしても破綻しないスマートなレイアウト＆負荷対策
-- **文字が巨大化しないスケーリング**: 画面をフルスクリーンや大画面に引き伸ばしても文字が野暮ったく肥大化しないよう、独自のスケーリング調整（平方根スケーリング）を導入。
-- **計算量の最適化**: 解像度を上げても描画頂点を適切に間引く処理を行っており、4Kディスプレイ等の大画面環境でもCPU/GPU負荷を抑えて軽快に動作します。
+#### 2. リサイズしても崩れないレイアウト
+- **アスペクト比維持**: ウィンドウを拡大・フルスクリーンにしても16:9の比率を保って中央に表示します（最小サイズ 640×360）。
+- **文字が巨大化しないスケーリング**: 平方根スケーリングで、大画面や4Kでも文字やHUDが肥大化しません。
+- **描画の軽量化**: 横幅が広いときはスペクトラム線の頂点を約800点に間引いて負荷を抑えます。
+- **自動再接続**: 既定の再生デバイスに追従します。出力デバイスを切り替えたとき、または約3秒無音が続いたときに、ループバックキャプチャを自動で開き直します。
 
-#### 3. ジャケット写真＆メディアコントロール連携
-- Windowsのメディア機能（GSMTC）と統合。Spotifyやブラウザ等で再生中の**楽曲ジャケット写真、曲名、アーティスト名、再生時間**を自動取得して表示。
-- アプリ上から直接 [再生/一時停止] [スキップ] などのメディア操作も可能です。
+#### 3. 再生中情報 & メディア操作（Windowsメディア / GSMTC）
+- Spotifyやブラウザなどで再生中の**ジャケット写真、曲名、アーティスト名、アルバム名、トラック番号、再生状態、再生位置／曲の長さ**を表示します。
+- 画面上のボタンで**前の曲 / 再生・一時停止 / 次の曲**を操作できます。
+- そのほか、再生元アプリ、サンプルレート、システム音量（またはMUTE）、現在のテーマ、FPS、キャプチャ中のデバイス名、日付付きの時計も表示します。
 
-#### 4. 眺めて楽しい、本格的なプロ仕様メーター群
-- **リアルタイム・スペクトラム & ウォーターフォール**（帯域別履歴表示）
-- **リサージュ・ゴニオメーター**: ステレオの広がりをグラフィカルに可視化
-- **ステレオ相関度（CORR） & Mid/Side バランス比**
-- **PEAK & クレストファクター（音圧感・ダイナミクス感の指標）**
-- **スペクトル重心（CENTROID）**: 音色の明るさを数値化
+#### 4. メーター群
+- **スペクトラム & ウォーターフォール**: ピークホールド付きのリアルタイム表示と周波数履歴。
+- **リサージュ・ゴニオメーター**: 直近128サンプルのL/Rから、ステレオの広がりと位相を表示。
+- **CORR**: 左右の相関度（−1〜+1）を色分けして表示。モノラル音源では+1.00になります。
+- **M/S**: Mid（L+R）とSide（L−R）のエネルギー比（％）。
+- **PEAK**: サンプルピークをdBFSで表示。立ち上がりは即時で、減衰は平滑化されます。−3 dBFS以上でオレンジ、−1 dBFS以上で赤になります。
+- **CREST**: クレストファクター（ピーク − RMS、dB）。音のダイナミクス感の目安です。
+- **CENTROID**: スペクトル重心（kHz）。音の明るさの目安です。
 
-### ⌨️ ショートカット & 操作
+### ⚠️ 仕様・制限事項
+- **スペクトラム、ウォーターフォール、CENTROIDはモノラルミックスから計算しています。** FFTの前に左右を足して平均（`(L + R) / 2`）しているため、完全な逆位相の音（L = −R）は打ち消し合って、これらの表示では**ゼロ**になります。PEAK、CREST、ゴニオメーター、CORR、M/Sは左右を別々に使うので、逆位相の音もこれらには表示されます（CORRは−1.00になります）。
+- **PEAKはサンプルピークで、トゥルーピークではありません。** オーバーサンプリングは行っていません。
+- **解析に使うのは先頭の2チャンネルだけです。** 5.1chなどのマルチチャンネル出力では、先頭の2チャンネル（フロントL/R）のみを解析します。
+- **Windows専用です。** キャプチャはWASAPIループバック、メディア・音量機能はWindows APIに依存します。曲情報には `winsdk`、音量・ミュート表示には `pycaw` が必要で、無くても起動はしますが、その項目は表示されません。
+
+### ⌨️ 操作
 | 操作 | 内容 |
 | :--- | :--- |
-| **`C` キー** | カラーテーマの切り替え（Cyan / Magenta / Gold / Green / White） |
+| **`C` キー** | カラーテーマの切り替え（Cyberpunk Cyan / Neon Magenta / Amber Gold / Matrix Green / Ice White） |
 | **画面右上 [PIN]** | 最前面表示の固定 / 解除 |
-| **右上の操作ボタン** | 楽曲のスキップ・再生・一時停止 |
+| **右下のボタン（⏮ ⏯ ⏭）** | 前の曲 / 再生・一時停止 / 次の曲 |
 
 ### 📥 ダウンロード（exeで使う場合）
-1. 画面右側の **[Releases](releases)** から最新版の `.exe` をダウンロードしてください。
+1. **[Releases](https://github.com/taionkeiondokei-ux/system-audio-spectrum/releases)** ページから最新版の `.exe` をダウンロードしてください。
 2. そのままダブルクリックで起動します。  
    *(※個人開発の未署名アプリのため、Windows SmartScreenの警告が出た場合は「詳細情報」→「実行」を押してください)*
 
@@ -102,6 +125,7 @@ python spectrum_clean.py
 pip install -r requirements.txt
 python spectrum_clean.py
 ```
+主なライブラリ: PyQt6、NumPy、PyAudioWPatch。オプション機能として `winsdk`（曲情報）と `pycaw` / `comtypes`（音量表示）。ウィンドウアイコンを表示するには、スクリプトと同じ場所に `app.ico` を置いてください。
 
 ---
 
