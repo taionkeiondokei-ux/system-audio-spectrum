@@ -85,7 +85,7 @@ pyinstaller --noconsole --onedir --clean --name "SystemAudioSpectrumPro" --icon=
 pyinstaller --noconsole --onefile --clean --name "SystemAudioSpectrumPro" --icon=app.ico --add-data "app.ico;." spectrum_clean.py
 # Output: dist/SystemAudioSpectrumPro.exe
 ```
-`--onedir` starts much faster than `--onefile`.
+`--onedir` starts slightly faster than `--onefile`.
 
 ---
 
@@ -159,7 +159,7 @@ pyinstaller --noconsole --onedir --clean --name "SystemAudioSpectrumPro" --icon=
 pyinstaller --noconsole --onefile --clean --name "SystemAudioSpectrumPro" --icon=app.ico --add-data "app.ico;." spectrum_clean.py
 # 出力: dist/SystemAudioSpectrumPro.exe
 ```
-`--onedir` は `--onefile` より起動がかなり速くなります。
+`--onedir` は `--onefile` より起動がやや速くなります。
 
 ---
 
